@@ -1,4 +1,4 @@
-#include "button.cpp"
+#include "../libs/button.cpp"
 #include "snake.cpp"
 #include <Functions.hpp>
 #include <functional>

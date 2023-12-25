@@ -101,13 +101,13 @@ public:
   }
 
   void control() {
-    if (IsKeyDown(KEY_DOWN)) {
+    if (IsKeyDown(KEY_DOWN) && dir != DIR::UP) {
       dir = DIR::DOWN;
-    } else if (IsKeyDown(KEY_UP)) {
+    } else if (IsKeyDown(KEY_UP) && dir != DIR::DOWN) {
       dir = DIR::UP;
-    } else if (IsKeyDown(KEY_LEFT)) {
+    } else if (IsKeyDown(KEY_LEFT) && dir != DIR::RIGHT) {
       dir = DIR::LEFT;
-    } else if (IsKeyDown(KEY_RIGHT)) {
+    } else if (IsKeyDown(KEY_RIGHT) && dir != DIR::LEFT) {
       dir = DIR::RIGHT;
     }
   }
