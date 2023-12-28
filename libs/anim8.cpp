@@ -6,6 +6,7 @@
 using namespace std;
 
 class Anim8 {
+ public:
   size_t count = 0;
   std::vector<int> frames;
   float time = 0;
@@ -13,7 +14,7 @@ class Anim8 {
   Rectangle src_rec;
   Rectangle dest_rec;
 
-  Anim8(float w, float h, int frame_count, float anim_dur, float src_x,
+  void init(float w, float h, int frame_count, float anim_dur, float src_x,
         float src_y, float dest_x, float dest_y, float scale) {
     src_rec.x = src_x;
     src_rec.y = src_y;
@@ -31,6 +32,7 @@ class Anim8 {
 
   void update(float dt) {
     if (time > dur) {
+      count++;
       count %= frames.size();
       src_rec.x = frames[count];
       time = 0;
