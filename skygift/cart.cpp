@@ -23,7 +23,6 @@ public:
     speed = spd;
     anim.init(cartSrc.width, cartSrc.height, 2, 0.10, cartSrc.x, cartSrc.y,
               dest_x, dest_y - (scale * cartSrc.height), scale);
-
     for (int i = 0; i < 3; i++) {
       float size = anim.dest_rec.width / 3;
       auto gift = Gift(dest_x + (i * size),
@@ -57,10 +56,14 @@ public:
     }
   }
 
-  void update(float dt, float screenWidth) {
+  void update(float dt, float screenWidth, vector<Gift> &giftsVec) {
     control(dt, (screenWidth - anim.dest_rec.width));
     for (size_t i = 0; i < gifts.size(); i++) {
       gifts[i].giftDest.x = anim.dest_rec.x + (i * gifts[i].giftDest.width);
+    }
+
+    for (Gift &gft : giftsVec) {
+      catchGift(gft);
     }
   }
 
