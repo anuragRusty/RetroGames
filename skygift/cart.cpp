@@ -12,24 +12,14 @@ const Rectangle cartSrc = Rectangle{0, 224, 64, 28};
 
 class Cart {
 public:
+  int score = 0;
+
+private:
   ObjDir dir;
   float speed;
   Anim8 anim;
   size_t gift_count = 0;
-  int score = 0;
   vector<Gift> gifts;
-
-  Cart(float dest_x, float dest_y, float scale, float spd) {
-    speed = spd;
-    anim.init(cartSrc.width, cartSrc.height, 2, 0.10, cartSrc.x, cartSrc.y,
-              dest_x, dest_y - (scale * cartSrc.height), scale);
-    for (int i = 0; i < 3; i++) {
-      float size = anim.dest_rec.width / 3;
-      auto gift = Gift(dest_x + (i * size),
-                       dest_y - (1.6 * anim.dest_rec.height), size);
-      gifts.push_back(gift);
-    }
-  }
 
   void catchGift(Gift &gift) {
     bool collison = CheckCollisionRecs(gift.giftDest, anim.dest_rec);
@@ -53,6 +43,19 @@ public:
       dir = RIGHT;
       go(dt);
       anim.update(dt);
+    }
+  }
+
+public:
+  Cart(float dest_x, float dest_y, float scale, float spd) {
+    speed = spd;
+    anim.init(cartSrc.width, cartSrc.height, 2, 0.10, cartSrc.x, cartSrc.y,
+              dest_x, dest_y - (scale * cartSrc.height), scale);
+    for (int i = 0; i < 3; i++) {
+      float size = anim.dest_rec.width / 3;
+      auto gift = Gift(dest_x + (i * size),
+                       dest_y - (1.6 * anim.dest_rec.height), size);
+      gifts.push_back(gift);
     }
   }
 

@@ -8,32 +8,24 @@ const Rectangle paraSrc = Rectangle{0, 32, 32, 32};
 class Gift {
 public:
   Rectangle giftDest;
+  bool exhausted = false;
+
+private:
   Rectangle paraDest;
   float dx = GetRandomValue(-1, 2);
   float dy = 1;
   float y_speed = GetRandomValue(100, 160);
   float x_speed = GetRandomValue(100, 240);
-  bool exhausted = false;
-
-  Gift(float x, float y, float size) {
-    paraDest = Rectangle{x, y - size + (size / 10), size, size};
-    giftDest = Rectangle{x, y, size, size};
-  }
 
   void go(float dt, int maxWidth) {
     paraDest.y += dt * y_speed;
     giftDest.y += dt * y_speed;
-    if (paraDest.x > maxWidth || giftDest.x > maxWidth) {
-      if (dx > 0) {
-        x_speed = 0;
-      }
-    }
 
-    if (paraDest.x < paraDest.width || giftDest.x < giftDest.width) {
-      if (dx < 0) {
-        x_speed = 0;
-      }
-    }
+    if (paraDest.x > maxWidth || giftDest.x > maxWidth)
+      x_speed = 0;
+
+    if (paraDest.x <= 0 || giftDest.x <= 0)
+      x_speed = 0;
 
     paraDest.x += dt * x_speed * dx;
     giftDest.x += dt * x_speed * dx;
@@ -46,6 +38,12 @@ public:
       if (life > 0)
         life--;
     }
+  }
+
+public:
+  Gift(float x, float y, float size) {
+    paraDest = Rectangle{x, y - size + (size / 10), size, size};
+    giftDest = Rectangle{x, y, size, size};
   }
 
   void update(float dt, float screenHeight, float screenWidth, int &life) {

@@ -18,7 +18,7 @@ const Rectangle giftSrc = Rectangle{0, 64, 32, 32};
 const Rectangle heartSrc = Rectangle{0, 128, 32, 32};
 
 class Background {
-public:
+private:
   float screenWidth;
   float screenHeight;
   float shadeHeight;
@@ -34,6 +34,7 @@ public:
   vector<Rectangle> cloudDestRecs;
   vector<Rectangle> grassDestRecs;
 
+public:
   Background(float w, float h) {
     screenWidth = w;
     screenHeight = h;

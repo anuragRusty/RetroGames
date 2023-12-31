@@ -13,10 +13,12 @@ enum ObjDir {
 };
 
 class Plane {
-public:
-  Rectangle planeDest;
+private:
   float speed;
   ObjDir dir = LEFT;
+
+public:
+  Rectangle planeDest;
 
   Plane(float size, float spd) {
     planeDest = Rectangle{size, size, size, size};

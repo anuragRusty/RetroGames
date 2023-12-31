@@ -6,24 +6,20 @@
 using namespace std;
 
 class Anim8 {
- public:
-  size_t count = 0;
+private:
   std::vector<int> frames;
   float time = 0;
   float dur = 0;
   Rectangle src_rec;
   Rectangle dest_rec;
 
+public:
+  size_t count = 0;
+
   void init(float w, float h, int frame_count, float anim_dur, float src_x,
-        float src_y, float dest_x, float dest_y, float scale) {
-    src_rec.x = src_x;
-    src_rec.y = src_y;
-    src_rec.width = w;
-    src_rec.height = h;
-    dest_rec.x = dest_x;
-    dest_rec.y = dest_y;
-    dest_rec.width = w * scale;
-    dest_rec.height = h * scale;
+            float src_y, float dest_x, float dest_y, float scale) {
+    src_rec = Rectangle{src_x, src_y, w, h};
+    dest_rec = Rectangle{dest_rec.x, dest_rec.y, w * scale, h * scale};
     dur = anim_dur;
     for (int i = 0; i < frame_count; i++) {
       frames.push_back(i * src_rec.width);

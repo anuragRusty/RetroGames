@@ -22,6 +22,8 @@ class Game {
 public:
   float screenWidth = 800;
   float screenHeight = 800;
+
+private:
   int life = 3;
   Button start = Button(screenWidth / 3, screenHeight / 3, screenHeight / 16,
                         "START", BTN_COLOR);
@@ -38,8 +40,8 @@ public:
                          "RESUME", BTN_COLOR);
   GameState state = MENU;
   Background background = Background(screenWidth, screenHeight);
-  Cart cart =
-      Cart((screenHeight / 6), screenHeight - (screenHeight / 6), 2, 200);
+  Cart cart = Cart((screenHeight / 6), screenHeight - (screenHeight / 6),
+                   screenHeight / 400, 200);
   Plane plane = Plane(screenHeight / 6, 300);
   vector<Gift> gifts;
 
@@ -73,6 +75,18 @@ public:
     }
   }
 
+  void drawState(string str) {
+    DrawText(str.c_str(), screenWidth / 2 - (str.size() * screenHeight / 32),
+             screenHeight / 2, screenHeight / 16, BTN_COLOR);
+  }
+
+  void drawGifts(Texture2D &texture) {
+    for (Gift &gift : gifts) {
+      gift.draw(texture, true);
+    }
+  }
+
+public:
   void update(float dt) {
     function<void()> handle_start = [&]() { state = GameState::RUNNING; };
     function<void()> handle_paused = [&]() { state = GameState::PAUSED; };
@@ -104,17 +118,6 @@ public:
     case GAMEOVER:
       restart.onClick(handle_restart);
       break;
-    }
-  }
-
-  void drawState(string str) {
-    DrawText(str.c_str(), screenWidth / 2 - (str.size() * screenHeight / 32),
-             screenHeight / 2, screenHeight / 16, BTN_COLOR);
-  }
-
-  void drawGifts(Texture2D &texture) {
-    for (Gift &gift : gifts) {
-      gift.draw(texture, true);
     }
   }
 
