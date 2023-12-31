@@ -6,17 +6,19 @@
 using namespace std;
 
 class Button {
-public:
+private:
   Rectangle rec;
   string text;
   bool hover = false;
-
-  Button(float x, float y, float textSize, string name) {
+  Color color;
+public:
+  Button(float x, float y, float textSize, string name,Color clr) {
     rec.x = x;
     rec.y = y;
     rec.height = textSize;
     rec.width = textSize * (name.size() / 1.3);
     text = name;
+    color = clr;
   }
 
   void onClick(function<void()> func) {
@@ -32,8 +34,8 @@ public:
   }
 
   void draw() {
-    DrawText(text.c_str(), rec.x + (rec.height / 8), rec.y, rec.height, WHITE);
+    DrawText(text.c_str(), rec.x + (rec.height / 8), rec.y, rec.height, color);
     if (hover)
-      DrawRectangleLinesEx(rec, 2, WHITE);
+      DrawRectangleLinesEx(rec, 2, color);
   }
 };

@@ -22,12 +22,12 @@ public:
   Food food = Food(TILE_SIZE);
   GameState state = GameState::MENU;
   Button start = Button(SCREEN_WIDTH / 4 + TILE_SIZE, SCREEN_HEIGHT / 4,
-                        TILE_SIZE, "START");
+                        TILE_SIZE, "START",WHITE);
   Button exit = Button(SCREEN_WIDTH / 4 + TILE_SIZE,
-                       SCREEN_HEIGHT / 4 + TILE_SIZE, TILE_SIZE, "EXIT");
-  Button paused = Button(0, SCREEN_HEIGHT - TILE_SIZE, TILE_SIZE, "PAUSE");
-  Button restart = Button(0, SCREEN_HEIGHT - TILE_SIZE, TILE_SIZE, "RESTART");
-  Button resume = Button(0, SCREEN_HEIGHT - TILE_SIZE, TILE_SIZE, "RESUME");
+                       SCREEN_HEIGHT / 4 + TILE_SIZE, TILE_SIZE, "EXIT",WHITE);
+  Button paused = Button(0, SCREEN_HEIGHT - TILE_SIZE, TILE_SIZE, "PAUSE",WHITE);
+  Button restart = Button(0, SCREEN_HEIGHT - TILE_SIZE, TILE_SIZE, "RESTART",WHITE);
+  Button resume = Button(0, SCREEN_HEIGHT - TILE_SIZE, TILE_SIZE, "RESUME",WHITE);
 
   void update(float dt) {
     function<void()> game_func = [&]() { state = GameState::RUNNING; };
