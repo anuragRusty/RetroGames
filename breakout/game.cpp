@@ -26,6 +26,7 @@ public:
   void update(float dt) {
     player.update(dt);
     ball.update(dt, player, grid);
+    grid.update();
   }
 
   void draw(Texture2D texture) {
