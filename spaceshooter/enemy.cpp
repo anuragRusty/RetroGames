@@ -1,11 +1,10 @@
 #include <raylib.h>
 
-const Rectangle EnemySrc = Rectangle{16, 0, 16, 16};
-
 class Enemy {
 private:
-  int speed = 200;
-  int fallTime = GetRandomValue(800, 1000);
+  Rectangle src = Rectangle{16, 0, 16, 16};
+  int speed = 0;
+  int fallTime = GetRandomValue(800, 3200);
 
   void go(float dt) {
     if (fallTime <= 0) {
@@ -16,7 +15,7 @@ private:
   }
 
   void handleState(float maxHeight) {
-    if (dest.y > maxHeight)
+    if (dest.y > maxHeight || health <= 0)
       dead = true;
   }
 
@@ -26,7 +25,11 @@ public:
   bool dead = false;
 
   Enemy(float x, float y, float scale) {
-    dest = Rectangle{x, y, EnemySrc.width * scale, EnemySrc.height * scale};
+    int randIndex = GetRandomValue(1, 5);
+    speed = (src.width * scale * (scale / 2)) - (src.width * randIndex);
+    src.x *= randIndex;
+    health = randIndex;
+    dest = Rectangle{x, y, src.width * scale, src.height * scale};
   }
 
   void update(float dt, float maxHeight) {
@@ -35,6 +38,6 @@ public:
   }
 
   void draw(Texture2D &texture) {
-    DrawTexturePro(texture, EnemySrc, dest, Vector2{0, 0}, 0, WHITE);
+    DrawTexturePro(texture, src, dest, Vector2{0, 0}, 0, WHITE);
   }
 };

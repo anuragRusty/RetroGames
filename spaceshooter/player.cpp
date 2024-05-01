@@ -4,8 +4,11 @@
 #include <string>
 #include <vector>
 
-const Rectangle PlayerSrc = Rectangle{0, 0, 16, 16};
-const Rectangle HeartSrc = Rectangle{112, 0, 16, 16};
+enum State {
+  IDEAL = 0,
+  HIT = 10,
+  DEAD = 1,
+};
 
 enum Side {
   LEFT = -1,
@@ -13,43 +16,46 @@ enum Side {
   RIGHT = 1,
 };
 
-class Bullet {
-private:
-  Rectangle rec;
-  float speed = 340;
-
-  void go(float dt) { rec.y -= speed * dt; }
-
-  void checkForHitExhaustion(Enemy &enemy, size_t &score) {
-    if (rec.y < 0) {
-      exhausted = true;
-    }
-    if (CheckCollisionRecs(rec, enemy.dest)) {
-      exhausted = true;
-      enemy.dead = true;
-      score++;
-    }
-  }
-
-public:
-  bool exhausted = false;
-
-  Bullet(float x, float y, float scale) {
-    rec = Rectangle{x - (1 * scale), y, 2 * scale, 4 * scale};
-  }
-
-  void update(float dt, std::vector<Enemy> &enemies, size_t &score) {
-    go(dt);
-    for (Enemy &enemy : enemies)
-      checkForHitExhaustion(enemy, score);
-  }
-
-  void draw() { DrawRectangleRec(rec, RED); }
-};
-
 class Player {
 private:
+  class Bullet {
+  private:
+    Rectangle rec;
+    float speed = 340;
+
+    void go(float dt) { rec.y -= speed * dt; }
+
+    void checkForHitExhaustion(Enemy &enemy, size_t &score) {
+      if (rec.y < 0)
+        exhausted = true;
+
+      if (CheckCollisionRecs(rec, enemy.dest)) {
+        exhausted = true;
+        enemy.health -= 1;
+        score++;
+      }
+    }
+
+  public:
+    bool exhausted = false;
+
+    Bullet(float x, float y, float scale) {
+      rec = Rectangle{x - (1 * scale), y, 2 * scale, 4 * scale};
+    }
+
+    void update(float dt, std::vector<Enemy> &enemies, size_t &score) {
+      go(dt);
+      for (Enemy &enemy : enemies)
+        checkForHitExhaustion(enemy, score);
+    }
+
+    void draw() { DrawRectangleRec(rec, RED); }
+  };
+
+  Rectangle src = Rectangle{0, 0, 16, 16};
+  Rectangle heart_src = Rectangle{112, 0, 16, 16};
   Rectangle dest;
+  State state = State::IDEAL;
   size_t score = 0;
   int maxSpeed = 280;
   int maxWidth = 0;
@@ -57,10 +63,11 @@ private:
   int accelaration = 1500;
   int friction = 1000;
   Side dx = Side::STILL;
+  float loadDelay = 0.2;
   float lTime = 0;
   float tTime = 0;
+  float tTimeDur = 2;
   size_t tCount = 0;
-  float loadDelay = 0.2;
   std::vector<Bullet> bullets;
   Color color = WHITE;
 
@@ -93,12 +100,18 @@ private:
 
   void tinting(float dt) {
     Color colors[2] = {RED, WHITE};
-    if (tTime > loadDelay) {
-      color = colors[tCount % 2];
-      tCount++;
-      tTime = 0;
+    if (state == State::HIT && tTimeDur > 0) {
+      if (tTime > loadDelay) {
+        color = colors[tCount % 2];
+        tCount++;
+        tTime = 0;
+      }
+      tTime += dt;
+      tTimeDur -= dt;
+    } else if (state == State::HIT) {
+      color = WHITE;
+      state = State::IDEAL;
     }
-    tTime += dt;
   }
 
   void control(float dt) {
@@ -114,32 +127,44 @@ private:
     shoot(dt);
   }
 
+  void handleState(std::vector<Enemy> &enemies) {
+    for (Enemy &enemy : enemies)
+      if (CheckCollisionRecs(enemy.dest, dest)) {
+        state = State::HIT;
+        tTimeDur = loadDelay * state;
+        enemy.health -= 1;
+        lifes -= 1;
+      }
+
+    if (lifes <= 0)
+      state = State::DEAD;
+  }
+
 public:
   int lifes = 3;
 
   Player(float x, float y, float scale, int screenWidth) {
     lifes = 3;
     maxWidth = screenWidth;
-    dest = Rectangle{x, y, PlayerSrc.width * scale, PlayerSrc.height * scale};
+    dest = Rectangle{x, y, src.width * scale, src.height * scale};
   }
 
   void update(float dt, float maxWidth, std::vector<Enemy> &enemies) {
     control(dt);
     go(dt);
     tinting(dt);
+    handleState(enemies);
 
-    for (Bullet &bullet : bullets) {
+    for (Bullet &bullet : bullets)
       bullet.update(dt, enemies, score);
-    }
 
-    for (size_t i = 0; i < bullets.size(); i++) {
+    for (size_t i = 0; i < bullets.size(); i++)
       if (bullets[i].exhausted)
         bullets.erase(bullets.begin() + i);
-    }
   }
 
   void draw(Texture2D &texture) {
-    DrawTexturePro(texture, PlayerSrc, dest, Vector2{0, 0}, 0, color);
+    DrawTexturePro(texture, src, dest, Vector2{0, 0}, 0, color);
     for (Bullet &bullet : bullets) {
       bullet.draw();
     }
@@ -147,7 +172,7 @@ public:
              WHITE);
     for (int i = 1; i <= lifes; i++) {
       DrawTexturePro(
-          texture, HeartSrc,
+          texture, heart_src,
           Rectangle{maxWidth - (dest.width * i), 0, dest.width, dest.height},
           Vector2{0, 0}, 0, WHITE);
     }
