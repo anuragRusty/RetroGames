@@ -55,8 +55,6 @@ private:
   Rectangle src = Rectangle{0, 0, 16, 16};
   Rectangle heart_src = Rectangle{112, 0, 16, 16};
   Rectangle dest;
-  State state = State::IDEAL;
-  size_t score = 0;
   int maxSpeed = 280;
   int maxWidth = 0;
   int speed = 0;
@@ -141,7 +139,9 @@ private:
   }
 
 public:
-  int lifes = 3;
+  size_t lifes = 3;
+  size_t score = 0;
+  State state = State::IDEAL;
 
   Player(float x, float y, float scale, int screenWidth) {
     lifes = 3;
