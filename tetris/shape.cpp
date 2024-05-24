@@ -1,6 +1,6 @@
 #include "shape.hpp"
 #include "sprites.hpp"
-#include <raylib.h>
+#include <raylib-cpp.hpp>
 
 Color colors[7] = {RED, YELLOW, GREEN, BLUE, VIOLET, ORANGE, WHITE};
 

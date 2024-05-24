@@ -1,30 +1,21 @@
-#include "raylib-cpp.hpp"
+#include "game.hpp"
+#include <raylib-cpp.hpp>
 
 int main() {
-  int screenWidth = 800;
-  int screenHeight = 450;
+  int screenWidth = 400;
+  int screenHeight = 800;
+  Game game = Game();
 
-  raylib::Window window(screenWidth, screenHeight, "raylib-cpp - basic window");
-  raylib::Texture logo("raylib_logo.png");
+  raylib::Window window(screenWidth, screenHeight, "Tetris");
 
   SetTargetFPS(60);
-
   while (!window.ShouldClose()) {
+    float dt = GetFrameTime();
+    game.update(dt);
     BeginDrawing();
-
     window.ClearBackground(RAYWHITE);
-
-    DrawText("Congrats! You created your first window!", 190, 200, 20,
-             LIGHTGRAY);
-
-    // Object methods.
-    logo.Draw(screenWidth / 2 - logo.GetWidth() / 2,
-              screenHeight / 2 - logo.GetHeight() / 2);
-
+    game.draw();
     EndDrawing();
   }
-
-  // UnloadTexture() and CloseWindow() are called automatically.
-
   return 0;
 }
