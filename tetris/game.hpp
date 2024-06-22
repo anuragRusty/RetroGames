@@ -13,6 +13,7 @@ private:
 public:
   void update(float dt);
   void draw();
+  void spawnShape();
   void removeShape();
 };
 
