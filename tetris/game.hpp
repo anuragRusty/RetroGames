@@ -5,16 +5,25 @@
 #include "shape.hpp"
 #include <vector>
 
+using namespace std;
+
 class Game {
 private:
   Grid grid = Grid();
   std::vector<Shape> shapes;
+  size_t score = 0;
 
 public:
-  void update(float dt);
-  void draw();
+  size_t screenWidth = 600;
+  size_t uiMargin = 200;
+  size_t screenHeight = 800;
+
   void spawnShape();
   void removeShape();
+  void update(float dt);
+  void drawScore();
+  void drawNextShape();
+  void draw();
 };
 
 #endif // !DEBUG

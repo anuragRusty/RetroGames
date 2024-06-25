@@ -9,15 +9,11 @@ public:
   bool exist = false;
   Color color = WHITE;
 
-  void update(float dt) {}
-
-  void draw() const;
-
   Cell(int x, int y);
-
   void setPosAndClr(int x, int y, Color clr);
-
   Vector2 getPosIndex() const;
+  void update(float dt) {}
+  void draw() const;
 };
 
 #endif // !CELL_H

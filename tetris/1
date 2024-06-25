@@ -4,7 +4,6 @@
 #include "sprites.hpp"
 #include <cmath>
 #include <cstddef>
-#include <cstdlib>
 #include <raylib-cpp.hpp>
 #include <raylib.h>
 #include <utility>
@@ -16,7 +15,7 @@ Shape::Shape() {
   int randomColorIndex = GetRandomValue(0, 5);
   sprite = SPRITES[randomSpritIndex];
   color = colors[randomColorIndex];
-  vec.y = TILE_SIZE;
+  vec.y = -TILE_SIZE * 2;
   vec.x = TILE_SIZE * floor(COLS / 4) + 1;
 }
 
@@ -27,21 +26,22 @@ void Shape::update(float dt, Grid &grid) {
   insertShape(grid);
 }
 
-bool Shape::checkCollison(Grid &grid) {
+bool Shape::checkCollison(Grid const &grid) {
   Vector2 dummyVec = vec;
   dummyVec.x += TILE_SIZE;
   dummyVec.y += TILE_SIZE;
   for (size_t i = 0; i < sprite.size(); i++) {
-    for (size_t j = 0; j < sprite[0].size(); j++) {
+    for (size_t j = 0; j < sprite[i].size(); j++) {
       if (sprite[i][j]) {
-        int x = floor((vec.x + (i * TILE_SIZE)) / TILE_SIZE);
-        int y = floor((vec.y + (j * TILE_SIZE)) / TILE_SIZE);
+        int x = floor((dummyVec.x + i * TILE_SIZE) / TILE_SIZE);
+        int y = floor((dummyVec.y + j * TILE_SIZE) / TILE_SIZE);
         if (x <= 0 || x >= COLS)
           return true;
-        if (y >= ROWS)
+        if (y >= ROWS) {
           return true;
-        // if (grid.matrix[x][y].exist)
-        // return true;
+        }
+        if (grid.matrix[x][y].exist)
+          return true;
       }
     }
   }
@@ -53,10 +53,11 @@ void Shape::insertShape(Grid &grid) {
     for (size_t i = 0; i < sprite.size(); i++) {
       for (size_t j = 0; j < sprite[i].size(); j++) {
         if (sprite[i][j]) {
-          int x = floor((vec.x + (i * TILE_SIZE)) / TILE_SIZE);
-          int y = floor((vec.y + (j * TILE_SIZE)) / TILE_SIZE);
-          grid.matrix[x][y].color = color;
-          grid.matrix[x][y].exist = true;
+          int x = floor((vec.x + i * TILE_SIZE) / TILE_SIZE);
+          int y = floor((vec.y + j * TILE_SIZE) / TILE_SIZE);
+          Cell cell = grid.matrix[i][j];
+          cell.color = color;
+          cell.exist = true;
         }
       }
     }

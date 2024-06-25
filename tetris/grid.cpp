@@ -1,10 +1,13 @@
 #include "grid.hpp"
+#include "cell.hpp"
+#include <cmath>
+#include <raylib.h>
 
 Grid::Grid() {
-  for (std::size_t i = 0; i < ROWS; i++) {
+  for (std::size_t i = 0; i < COLS; i++) {
     std::vector<Cell> newRow;
     matrix.push_back(newRow);
-    for (std::size_t j = 0; j < COLS; j++) {
+    for (std::size_t j = 0; j < ROWS; j++) {
       Cell newCell(i, j);
       matrix[0].push_back(newCell);
     }
@@ -12,9 +15,10 @@ Grid::Grid() {
 }
 
 void Grid::draw() {
-  for (const auto &row : matrix) {
-    for (const auto &cell : row) {
+  for (const auto &cells : matrix) {
+    for (const auto &cell : cells) {
       cell.draw();
+      DrawRectangleLinesEx(cell.rec, 1, WHITE);
     }
   }
 }

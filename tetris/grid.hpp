@@ -7,10 +7,11 @@
 #include "cell.hpp"
 #include <raylib-cpp.hpp>
 #include <vector>
+using namespace std;
 
 class Grid {
 public:
-  std::vector<std::vector<Cell>> matrix;
+  vector<vector<Cell>> matrix;
   Grid();
   void update(float dt);
   void draw();
