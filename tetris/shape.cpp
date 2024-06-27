@@ -24,6 +24,7 @@ void Shape::update(float dt, Grid &grid) {
   updateExhaustion(grid);
   controlMove(grid);
   controlRotate(grid);
+  insertShape(grid);
   go(dt);
 }
 
@@ -49,13 +50,17 @@ void Shape::updateExhaustion(Grid const &grid) {
 }
 
 void Shape::insertShape(Grid &grid) {
-  for (size_t i = 0; i < sprite.size(); i++) {
-    for (size_t j = 0; j < sprite[i].size(); j++) {
-      if (sprite[i][j]) {
-        int x = floor((vec.x + (i * TILE_SIZE)) / TILE_SIZE);
-        int y = floor((vec.y + (j * TILE_SIZE)) / TILE_SIZE);
-        grid.matrix[y][x].color = color;
-        grid.matrix[y][x].exist = true;
+  if (exhausted) {
+    for (size_t i = 0; i < sprite.size(); i++) {
+      for (size_t j = 0; j < sprite[i].size(); j++) {
+        if (sprite[i][j]) {
+          int x = floor((vec.x + (i * TILE_SIZE)) / TILE_SIZE);
+          int y = floor((vec.y + (j * TILE_SIZE)) / TILE_SIZE);
+          if (x < 0 || y < 0)
+            break;
+          grid.matrix[y][x].color = color;
+          grid.matrix[y][x].exist = true;
+        }
       }
     }
   }
