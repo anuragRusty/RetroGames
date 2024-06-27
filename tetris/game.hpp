@@ -3,14 +3,12 @@
 
 #include "grid.hpp"
 #include "shape.hpp"
-#include <vector>
-
-using namespace std;
 
 class Game {
 private:
   Grid grid = Grid();
-  std::vector<Shape> shapes;
+  Shape currShape = Shape();
+  Shape nextShape = Shape();
   size_t score = 0;
 
 public:
@@ -18,8 +16,7 @@ public:
   size_t uiMargin = 200;
   size_t screenHeight = 800;
 
-  void spawnShape();
-  void removeShape();
+  void handleShape();
   void update(float dt);
   void drawScore();
   void drawNextShape();

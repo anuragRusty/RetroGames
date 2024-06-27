@@ -12,56 +12,85 @@
 Color colors[7] = {RED, YELLOW, GREEN, BLUE, VIOLET, ORANGE};
 
 Shape::Shape() {
-  int randomSpritIndex = GetRandomValue(0, 7);
-  int randomColorIndex = GetRandomValue(0, 5);
+  size_t randomSpritIndex = GetRandomValue(0, 6);
+  size_t randomColorIndex = GetRandomValue(0, 5);
   sprite = SPRITES[randomSpritIndex];
   color = colors[randomColorIndex];
-  vec.y = TILE_SIZE;
+  vec.y = -TILE_SIZE * 4;
   vec.x = TILE_SIZE * floor(COLS / 4) + 1;
 }
 
 void Shape::update(float dt, Grid &grid) {
+  updateExhaustion(grid);
+  controlMove(grid);
+  controlRotate(grid);
   go(dt);
-  controlMove();
-  controlRotate();
-  insertShape(grid);
 }
 
-bool Shape::checkCollison(Grid &grid) {
-  Vector2 dummyVec = vec;
-  dummyVec.x += TILE_SIZE;
-  dummyVec.y += TILE_SIZE;
+void Shape::updateExhaustion(Grid const &grid) {
+  if (!exhausted) {
+    Vector2 dummyVec = vec;
+    dummyVec.y += TILE_SIZE;
+    for (size_t i = 0; i < sprite.size(); i++) {
+      for (size_t j = 0; j < sprite[i].size(); j++) {
+        if (sprite[i][j]) {
+          int x = floor((dummyVec.x + (i * TILE_SIZE)) / TILE_SIZE);
+          int y = floor((dummyVec.y + (j * TILE_SIZE)) / TILE_SIZE);
+          if (y <= 0)
+            continue;
+          if (y >= ROWS || grid.matrix[y][x].exist) {
+            exhausted = true;
+            break;
+          }
+        }
+      }
+    }
+  }
+}
+
+void Shape::insertShape(Grid &grid) {
   for (size_t i = 0; i < sprite.size(); i++) {
-    for (size_t j = 0; j < sprite[0].size(); j++) {
+    for (size_t j = 0; j < sprite[i].size(); j++) {
       if (sprite[i][j]) {
         int x = floor((vec.x + (i * TILE_SIZE)) / TILE_SIZE);
         int y = floor((vec.y + (j * TILE_SIZE)) / TILE_SIZE);
-        if (x <= 0 || x >= COLS)
+        grid.matrix[y][x].color = color;
+        grid.matrix[y][x].exist = true;
+      }
+    }
+  }
+}
+
+bool Shape::checkCollison(Grid const &grid) {
+  for (size_t i = 0; i < sprite.size(); i++) {
+    for (size_t j = 0; j < sprite[i].size(); j++) {
+      if (sprite[i][j]) {
+        int x = floor((vec.x + (i * TILE_SIZE)) / TILE_SIZE);
+        int y = floor((vec.y + (j * TILE_SIZE)) / TILE_SIZE);
+        if (y < -4 || y >= ROWS)
           return true;
-        if (y >= ROWS)
+        if (x < 0 || x >= COLS)
           return true;
-        // if (grid.matrix[x][y].exist)
-        // return true;
+        if (y < 0 || x < 0)
+          continue;
+        if (grid.matrix[y][x].exist)
+          return true;
       }
     }
   }
   return false;
 }
 
-void Shape::insertShape(Grid &grid) {
-  if (checkCollison(grid)) {
-    for (size_t i = 0; i < sprite.size(); i++) {
-      for (size_t j = 0; j < sprite[i].size(); j++) {
-        if (sprite[i][j]) {
-          int x = floor((vec.x + (i * TILE_SIZE)) / TILE_SIZE);
-          int y = floor((vec.y + (j * TILE_SIZE)) / TILE_SIZE);
-          grid.matrix[x][y].color = color;
-          grid.matrix[x][y].exist = true;
-        }
-      }
-    }
-    exhausted = true;
-  }
+bool Shape::isMovable(Grid const &grid, int dx) {
+  Shape dummyShape = *this;
+  dummyShape.vec.x += dx;
+  return !dummyShape.checkCollison(grid);
+}
+
+bool Shape::isRotatable(Grid const &grid, bool antiClock) {
+  Shape dummyShape = *this;
+  dummyShape.rotate(antiClock);
+  return !dummyShape.checkCollison(grid);
 }
 
 void Shape::go(float dt) {
@@ -72,26 +101,27 @@ void Shape::go(float dt) {
   moveTime += dt;
 }
 
-void Shape::controlMove() {
-  if (IsKeyPressed(KEY_LEFT)) {
+void Shape::controlMove(Grid const &grid) {
+  if (IsKeyPressed(KEY_LEFT) && isMovable(grid, -TILE_SIZE) && !exhausted) {
     vec.x -= TILE_SIZE;
-  } else if (IsKeyPressed(KEY_RIGHT)) {
+  } else if (IsKeyPressed(KEY_RIGHT) && isMovable(grid, TILE_SIZE) &&
+             !exhausted) {
     vec.x += TILE_SIZE;
-  } else if (IsKeyPressed(KEY_SPACE)) {
+  } else if (IsKeyPressed(KEY_SPACE) && !exhausted) {
     vec.y += TILE_SIZE;
   }
 }
 
-void Shape::controlRotate() {
-  if (IsKeyPressed(KEY_UP)) {
+void Shape::controlRotate(Grid const &grid) {
+  if (IsKeyPressed(KEY_UP) && isRotatable(grid, true) && !exhausted) {
     rotate(true);
-  } else if (IsKeyPressed(KEY_DOWN)) {
+  } else if (IsKeyPressed(KEY_DOWN) && isRotatable(grid, false) && !exhausted) {
     rotate(false);
   }
 }
 
 void Shape::rotate(bool antiClock) {
-  size_t n = 4;
+  size_t n = sprite.size();
   for (size_t i = 0; i < n; i++) {
     for (size_t j = i; j < n; j++) {
       std::swap(sprite[i][j], sprite[j][i]);

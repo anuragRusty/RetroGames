@@ -17,12 +17,13 @@ public:
   Shape();
   void update(float dt, Grid &grid);
   void insertShape(Grid &grid);
-  bool checkCollison(Grid &grid);
+  void updateExhaustion(Grid const &grid);
+  bool isMovable(Grid const &grid, int dx);
+  bool isRotatable(Grid const &grid, bool antiClock);
+  bool checkCollison(Grid const &grid);
+  void controlRotate(Grid const &grid);
+  void controlMove(Grid const &grid);
   void go(float dt);
-  bool isMovable(Grid &grid);
-  void controlMove();
-  bool isRotatable(Grid &grid);
-  void controlRotate();
   void goDown(float dt);
   void rotate(bool antiClock);
   void adjustX();

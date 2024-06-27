@@ -5,22 +5,18 @@
 #include <string>
 
 void Game::update(float dt) {
-  spawnShape();
-  // removeShape();
-  shapes[0].update(dt, grid);
+  currShape.update(dt, grid);
+  handleShape();
+  grid.update(score);
 }
 
-void Game::spawnShape() {
-  if (shapes.size() < 2) {
+void Game::handleShape() {
+  if (currShape.exhausted) {
+    currShape.insertShape(grid);
     Shape newShape = Shape();
-    shapes.push_back(newShape);
+    currShape = std::move(nextShape);
+    nextShape = std::move(newShape);
   }
-}
-
-void Game::removeShape() {
-  size_t i = 0;
-  if (shapes[0].exhausted)
-    shapes.erase(shapes.begin() + 0);
 }
 
 void Game::drawScore() {
@@ -35,15 +31,15 @@ void Game::drawScore() {
 }
 
 void Game::drawNextShape() {
-  Shape nextShape = shapes[shapes.size() - 1];
-  nextShape.vec.x = screenWidth - uiMargin;
-  nextShape.vec.y = floor(screenHeight / 2 - 3 * TILE_SIZE);
-  nextShape.draw();
+  Shape displayShape = nextShape;
+  displayShape.vec.x = screenWidth - uiMargin;
+  displayShape.vec.y = floor(screenHeight / 2 - 3 * TILE_SIZE);
+  displayShape.draw();
 }
 
 void Game::draw() {
   drawScore();
   drawNextShape();
   grid.draw();
-  shapes[0].draw();
+  currShape.draw();
 }
