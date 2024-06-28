@@ -3,22 +3,24 @@ Made using C++ and Raylib + ❤️. All assets are self made using Piskel and Fi
 
 ## SKYGIFT
 
-![Logo](https://i.ibb.co/MP3t7Zq/Screencastfrom02-05-24084128-PMIST-ezgif-com-video-to-gif-converter.gif)
+![skygift](https://i.ibb.co/MP3t7Zq/Screencastfrom02-05-24084128-PMIST-ezgif-com-video-to-gif-converter.gif)
 
 ## BREAKOUT
 
-![Logo](https://i.ibb.co/xmJKH7H/Screencastfrom02-05-24084321-PMIST-ezgif-com-video-to-gif-converter.gif)
+![breakout](https://i.ibb.co/xmJKH7H/Screencastfrom02-05-24084321-PMIST-ezgif-com-video-to-gif-converter.gif)
 
 ## SPACESHOOTER
 
-![Logo](https://i.ibb.co/6Z9hMNZ/Screencastfrom02-05-24084231-PMIST-ezgif-com-video-to-gif-converter.gif)
+![spaceshooter](https://i.ibb.co/6Z9hMNZ/Screencastfrom02-05-24084231-PMIST-ezgif-com-video-to-gif-converter.gif)
 
 ## SNAKE
-![Logo](https://i.ibb.co/PGjhVtL/snake.gif)
+
+![snake](https://i.ibb.co/PGjhVtL/snake.gif)
 
 ## TETRIS
-![Logo](https://i.ibb.co/t43mv8J/tetris.gif)
+
+[![tetris](https://i.postimg.cc/SR5fJJyt/tetris.gif)](https://postimg.cc/m1YHnZ1Q)
 
 ## PONG
 
-![Logo](https://i.ibb.co/MgD3VGb/Screencastfrom02-05-24084410-PMIST-ezgif-com-video-to-gif-converter.gif)
+![pong](https://i.ibb.co/MgD3VGb/Screencastfrom02-05-24084410-PMIST-ezgif-com-video-to-gif-converter.gif)
