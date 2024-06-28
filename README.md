@@ -16,6 +16,9 @@ Made using C++ and Raylib + ❤️. All assets are self made using Piskel and Fi
 ## SNAKE
 ![Logo](https://i.ibb.co/PGjhVtL/snake.gif)
 
+## TETRIS
+![Logo](https://i.ibb.co/t43mv8J/tetris.gif)
+
 ## PONG
 
 ![Logo](https://i.ibb.co/MgD3VGb/Screencastfrom02-05-24084410-PMIST-ezgif-com-video-to-gif-converter.gif)
