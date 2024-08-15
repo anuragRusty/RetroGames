@@ -129,19 +129,25 @@ void Shape::rotate(bool antiClock) {
   size_t n = sprite.size();
   for (size_t i = 0; i < n; i++) {
     for (size_t j = i; j < n; j++) {
-      std::swap(sprite[i][j], sprite[j][i]);
+      bool temp = sprite[i][j];
+      sprite[i][j] = sprite[j][i];
+      sprite[j][i] = temp;
     }
   }
   if (!antiClock) {
     for (size_t i = 0; i < n; i++) {
       for (size_t j = 0; j < n / 2; j++) {
-        std::swap(sprite[i][j], sprite[i][n - j - 1]);
+        bool temp = sprite[i][j];
+        sprite[i][j] = sprite[j][i];
+        sprite[j][i] = temp;
       }
     }
   } else {
     for (size_t i = 0; i < n; i++) {
       for (size_t j = 0; j < n / 2; j++) {
-        std::swap(sprite[j][i], sprite[j][n - i - 1]);
+        bool temp = sprite[i][j];
+        sprite[i][j] = sprite[j][i];
+        sprite[j][i] = temp;
       }
     }
   }
