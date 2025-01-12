@@ -1,4 +1,4 @@
-#include "game.cpp"
+#include "game.hpp"
 #include <iostream>
 #include <raylib-cpp.hpp>
 
@@ -10,9 +10,7 @@ int main() {
     BeginDrawing();
     window.ClearBackground(BLACK);
     float dt = GetFrameTime();
-    // UPDATE OBJS
     game.update(dt);
-    // DRAW OBJS
     EndDrawing();
     game.draw();
   }
