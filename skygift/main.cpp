@@ -1,4 +1,4 @@
-#include "game.cpp"
+#include "game.hpp"
 #include "raylib-cpp.hpp"
 #include <raylib.h>
 
@@ -15,6 +15,5 @@ int main() {
     game.draw(texture);
     EndDrawing();
   }
-
   return 0;
 }
