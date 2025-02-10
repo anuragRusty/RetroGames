@@ -1,7 +1,6 @@
 #include <cmath>
 #include <cstdlib>
 #include <raylib-cpp.hpp>
-#include <raylib.h>
 #include <raymath.h>
 
 class Food {
