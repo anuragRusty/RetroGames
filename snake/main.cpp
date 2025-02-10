@@ -1,8 +1,5 @@
-#include "game.cpp"
+#include "game.hpp"
 #include "raylib-cpp.hpp"
-#include <Functions.hpp>
-#include <raylib.h>
-#include <string>
 
 int main() {
   const int TILE_SIZE = 48;
