@@ -1,7 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "../libs/button.cpp"
+#include "../include/button.hpp"
 #include "ball.hpp"
 #include <iostream>
 #include <raylib-cpp.hpp>

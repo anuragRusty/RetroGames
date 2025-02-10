@@ -1,26 +1,53 @@
 # RetroGames
 Made using C++ and Raylib + ❤️. All assets are self made using Piskel and Figma.
 
-## SKYGIFT
+## PROGRESS :-
 
-![skygift](https://i.ibb.co/MP3t7Zq/Screencastfrom02-05-24084128-PMIST-ezgif-com-video-to-gif-converter.gif)
-
-## BREAKOUT
-
-![breakout](https://i.ibb.co/xmJKH7H/Screencastfrom02-05-24084321-PMIST-ezgif-com-video-to-gif-converter.gif)
-
-## SPACESHOOTER
-
-![spaceshooter](https://i.ibb.co/6Z9hMNZ/Screencastfrom02-05-24084231-PMIST-ezgif-com-video-to-gif-converter.gif)
-
-## SNAKE
-
-![snake](https://i.ibb.co/PGjhVtL/snake.gif)
-
-## TETRIS
-
-[![tetris](https://i.postimg.cc/SR5fJJyt/tetris.gif)](https://postimg.cc/m1YHnZ1Q)
-
-## PONG
-
-![pong](https://i.ibb.co/MgD3VGb/Screencastfrom02-05-24084410-PMIST-ezgif-com-video-to-gif-converter.gif)
+- [x] Breakout
+  - [x] Custom Pixelart Graphics
+  - [x] Basic Game Menu
+- [x] Skygift
+  - [x] Custom Pixelart Graphics
+  - [x] Basic Game Menu
+- [x] Space Shooter
+  - [x] Custom Pixelart Graphics
+  - [x] Basic Game Menu
+- [x] Snake
+  - [ ] Custom Pixelart Graphics
+  - [x] Basic Game Menu
+- [x] Tetris
+  - [ ] Custom Pixelart Graphics
+  - [ ] Basic Game Menu
+- [x] Pong
+  - [ ] Custom Pixelart Graphics
+  - [ ] Basic Game Menu
+- [ ] Ninja Dash
+  - [ ] Custom Pixelart Graphics
+  - [ ] Basic Game Menu
+- [ ] Nitro Racer
+  - [ ] Custom Pixelart Graphics
+  - [ ] Basic Game Menu
+- [ ] Asteroids
+  - [ ] Custom Pixelart Graphics
+  - [ ] Basic Game Menu
+- [ ] Tank Battle
+  - [ ] Custom Pixelart Graphics
+  - [ ] Basic Game Menu
+- [ ] Copter
+  - [ ] Custom Pixelart Graphics
+  - [ ] Basic Game Menu
+- [ ] Tic Tac Toe
+  - [ ] Custom Pixelart Graphics
+  - [ ] Basic Game Menu
+- [ ] Battleships
+  - [ ] Custom Pixelart Graphics
+  - [ ] Basic Game Menu
+- [ ] Diamond Quest
+  - [ ] Custom Pixelart Graphics
+  - [ ] Basic Game Menu
+- [ ] Doodle Jump
+  - [ ] Custom Pixelart Graphics
+  - [ ] Basic Game Menu
+- [ ] Rock Paper Scissor
+  - [ ] Custom Pixelart Graphics
+  - [ ] Basic Game Menu
