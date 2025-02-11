@@ -1,7 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "../libs/button.cpp"
+#include "../include/button.hpp"
 #include "grid.hpp"
 #include "shape.hpp"
 
@@ -34,14 +34,9 @@ private:
   GameState state = MENU;
   Button start = Button(btnX, btnY, fontSize, "START", BTN_COLOR);
   Button exit = Button(btnX, btnY + fontSize, fontSize, "EXIT", BTN_COLOR);
-  Button paused = Button(screenWidth - (3.5 * 1.3 * (fontSize)),
-                         screenHeight - fontSize, fontSize, "PAUSE", BTN_COLOR);
-  Button restart =
-      Button(screenWidth - (4.5 * 1.3 * fontSize), screenHeight - fontSize,
-             fontSize, "RESTART", BTN_COLOR);
-  Button resume =
-      Button(screenWidth - (5.5 * 1.3 * fontSize), screenHeight - fontSize,
-             fontSize, "RESUME", BTN_COLOR);
+  Button paused = Button(screenWidth - (3.5 * 1.3 * (fontSize)),screenHeight - fontSize, fontSize, "PAUSE", BTN_COLOR);
+  Button restart = Button(screenWidth - (4.5 * 1.3 * fontSize), screenHeight - fontSize, fontSize, "RESTART", BTN_COLOR);
+  Button resume = Button(screenWidth - (5.5 * 1.3 * fontSize), screenHeight - fontSize,fontSize, "RESUME", BTN_COLOR);
 
   void handleShape();
   void handleState(Grid const &grid);

@@ -3,6 +3,8 @@
 #include "grid.hpp"
 #include <raylib-cpp.hpp>
 #include <vector>
+#include <iostream>
+
 using namespace std;
 
 class Shape {

@@ -17,7 +17,7 @@ Made using C++ and Raylib + ❤️. All assets are self made using Piskel and Fi
   - [x] Basic Game Menu
 - [x] Tetris
   - [ ] Custom Pixelart Graphics
-  - [ ] Basic Game Menu
+  - [x] Basic Game Menu
 - [x] Pong
   - [ ] Custom Pixelart Graphics
   - [ ] Basic Game Menu

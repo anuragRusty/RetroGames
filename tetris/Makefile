@@ -9,10 +9,11 @@ RAYLIB_LIBS = -lraylib -ldl -lpthread -lm
 
 # Directories
 SRC_DIR = ./
+LIB_DIR =../include
 BUILD_DIR = build
 
 # Source files
-SRCS = $(wildcard $(SRC_DIR)/*.cpp)
+SRCS = $(wildcard $(SRC_DIR)/*.cpp $(wildcard $(LIB_DIR))/*.cpp)
 
 # Object files
 OBJS = $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SRCS))

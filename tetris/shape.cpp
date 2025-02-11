@@ -2,12 +2,7 @@
 #include "cell.hpp"
 #include "grid.hpp"
 #include "sprites.hpp"
-#include <cmath>
-#include <cstddef>
-#include <cstdlib>
 #include <raylib-cpp.hpp>
-#include <raylib.h>
-#include <utility>
 
 Color colors[7] = {RED, YELLOW, GREEN, BLUE, VIOLET, ORANGE};
 
@@ -109,8 +104,7 @@ void Shape::go(float dt) {
 void Shape::controlMove(Grid const &grid) {
   if (IsKeyPressed(KEY_LEFT) && isMovable(grid, -TILE_SIZE) && !exhausted) {
     vec.x -= TILE_SIZE;
-  } else if (IsKeyPressed(KEY_RIGHT) && isMovable(grid, TILE_SIZE) &&
-             !exhausted) {
+  } else if (IsKeyPressed(KEY_RIGHT) && isMovable(grid, TILE_SIZE) && !exhausted) {
     vec.x += TILE_SIZE;
   } else if (IsKeyPressed(KEY_SPACE) && !exhausted) {
     vec.y += TILE_SIZE;
@@ -129,7 +123,7 @@ void Shape::rotate(bool antiClock) {
   size_t n = sprite.size();
   for (size_t i = 0; i < n; i++) {
     for (size_t j = i; j < n; j++) {
-      bool temp = sprite[i][j];
+      const bool temp = sprite[i][j];
       sprite[i][j] = sprite[j][i];
       sprite[j][i] = temp;
     }
@@ -137,17 +131,17 @@ void Shape::rotate(bool antiClock) {
   if (!antiClock) {
     for (size_t i = 0; i < n; i++) {
       for (size_t j = 0; j < n / 2; j++) {
-        bool temp = sprite[i][j];
-        sprite[i][j] = sprite[j][i];
-        sprite[j][i] = temp;
+        const bool temp = sprite[i][j];
+        sprite[i][j] = sprite[i][n-j-1];
+        sprite[i][n-j-1] = temp;
       }
     }
   } else {
     for (size_t i = 0; i < n; i++) {
       for (size_t j = 0; j < n / 2; j++) {
-        bool temp = sprite[i][j];
-        sprite[i][j] = sprite[j][i];
-        sprite[j][i] = temp;
+        const bool temp = sprite[j][i];
+        sprite[j][i] = sprite[j][n-i-1];
+        sprite[j][n-i-1] = temp;
       }
     }
   }
