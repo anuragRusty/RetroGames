@@ -13,7 +13,7 @@ Made using C++ and Raylib + ❤️. All assets are self made using Piskel and Fi
   - [x] Custom Pixelart Graphics
   - [x] Basic Game Menu
 - [x] Snake
-  - [ ] Custom Pixelart Graphics
+  - [x] Custom Pixelart Graphics
   - [x] Basic Game Menu
 - [x] Tetris
   - [ ] Custom Pixelart Graphics

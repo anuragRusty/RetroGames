@@ -1,5 +1,7 @@
 #include "food.hpp"
 
+const Rectangle FoodSrcRec = {0,0,16,16};
+
 Food::Food(float size) {
   rec.x = 48 * 7;
   rec.y = 48 * 2;
@@ -17,7 +19,6 @@ void Food::update(int maxWidth, int maxHeight) {
   }
 }
 
-void Food::draw() {
-  DrawRectangleRec(rec, RED);
-  DrawRectangleLinesEx(rec, rec.width / 16, BLACK);
+void Food::draw(const Texture2D &texture) {
+ DrawTexturePro(texture,FoodSrcRec,rec,{0,0},0,WHITE);
 }

@@ -1,5 +1,15 @@
 #include "game.hpp"
 
+Game::Game(){
+  size_t randomSquares = GetRandomValue(16*4,16*16);
+  for(size_t i = 0; i<randomSquares; i++){
+    float randomX = GetRandomValue(0,16);
+    float randomY = GetRandomValue(0,16);
+    Rectangle randomRec = {randomX*TILE_SIZE,randomY*TILE_SIZE,TILE_SIZE,TILE_SIZE};
+    backgroundCells.push_back(randomRec);
+  }
+}
+
 void Game::update(float dt) {
   function<void()> game_func = [&]() { state = GameState::RUNNING; };
   function<void()> restart_func = [&]() {
@@ -44,15 +54,29 @@ void Game::drawState(string text) {
   raylib::DrawText(text.c_str(), x, y, TILE_SIZE, WHITE);
 }
 
-void Game::draw() {
+void Game::drawBackground(){
+ size_t i = 0;
+ for(auto &cell:backgroundCells){
+    if(i % 7 != 0){
+      DrawRectangleLinesEx(cell,2,PURPLE);
+    }else{
+      DrawRectangleLinesEx(cell,4,BLACK);
+      DrawRectangleRec(cell,PURPLE);
+   }
+   i++;
+ }
+}
+
+void Game::draw(const Texture2D &texture) {
+  drawBackground();
   switch (state) {
   case MENU:
     start.draw();
     exit.draw();
     break;
   case RUNNING:
-    snake.draw();
-    food.draw();
+    snake.draw(texture);
+    food.draw(texture);
     score();
     paused.draw();
     break;
@@ -62,8 +86,8 @@ void Game::draw() {
     restart.draw();
     break;
   case PAUSED:
-    snake.draw();
-    food.draw();
+    snake.draw(texture);
+    food.draw(texture);
     score();
     drawState("GAME PAUSED");
     resume.draw();

@@ -9,10 +9,10 @@
 using namespace std;
 
 enum DIR {
-  UP,
-  DOWN,
-  LEFT,
-  RIGHT,
+  UP = 180,
+  DOWN = 0,
+  LEFT = 90,
+  RIGHT = 270,
 };
 
 class Snake {
@@ -30,7 +30,7 @@ public:
   void go(int maxWidth, int maxHeight);
   void control();
   void resetGame();
-  void draw();
+  void draw(const Texture2D &texture);
 };
 
 #endif

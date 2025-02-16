@@ -11,7 +11,7 @@ public:
 
   Food(float size);
   void update(int maxWidth, int maxHeight);
-  void draw();
+  void draw(const Texture2D &texture);
 };
 
 #endif

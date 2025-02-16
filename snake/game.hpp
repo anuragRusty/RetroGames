@@ -22,16 +22,19 @@ public:
   Snake snake = Snake(TILE_SIZE, TILE_SIZE, TILE_SIZE);
   Food food = Food(TILE_SIZE);
   GameState state = GameState::MENU;
+  std::vector<Rectangle> backgroundCells; 
   Button start = Button(SCREEN_WIDTH / 4 + TILE_SIZE, SCREEN_HEIGHT / 4,TILE_SIZE, "START",WHITE);
   Button exit = Button(SCREEN_WIDTH / 4 + TILE_SIZE,SCREEN_HEIGHT / 4 + TILE_SIZE, TILE_SIZE, "EXIT",WHITE);
   Button paused = Button(0, SCREEN_HEIGHT - TILE_SIZE, TILE_SIZE, "PAUSE",WHITE);
   Button restart = Button(0, SCREEN_HEIGHT - TILE_SIZE, TILE_SIZE, "RESTART",WHITE);
   Button resume = Button(0, SCREEN_HEIGHT - TILE_SIZE, TILE_SIZE, "RESUME",WHITE);
-
+  
+  Game();
   void update(float dt);
   void score();
   void drawState(string text);
-  void draw();
+  void draw(const Texture2D &texture);
+  void drawBackground();
 };
 
 #endif

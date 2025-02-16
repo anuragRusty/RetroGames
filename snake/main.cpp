@@ -2,12 +2,11 @@
 #include "raylib-cpp.hpp"
 
 int main() {
-  const int TILE_SIZE = 48;
-  int screenWidth = 48 * 16;
+  int screenWidth = TILE_SIZE * 16;
   int screenHeight = screenWidth;
   Game game = Game();
   raylib::Window window(screenWidth, screenHeight, "raylib-cpp - basic window");
-
+  const raylib::Texture texture("assets/sheet.png");
   SetTargetFPS(60);
 
   while (!window.ShouldClose()) {
@@ -17,7 +16,7 @@ int main() {
     // UPDATE OBJS
     game.update(dt);
     // DRAW OBJS
-    game.draw();
+    game.draw(texture);
     EndDrawing();
   }
   return 0;
